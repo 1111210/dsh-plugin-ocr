@@ -31,6 +31,24 @@ scp 形式的 `git@github.com:1111210/dsh-plugin-ocr.git` 会被 pnpm 拒绝
 
 卸载：在 Plugins 中对 bundle 选择 **Remove**。
 
+### GitHub 检查超时
+
+Plugin Manager 在安装前会用 `git ls-remote` 探测仓库，默认只等 5 秒。网络较慢、
+尤其是走代理时，探测可能超时，但 Git 本身是通的。把 profile 的
+`cordis.patch.yml` 中 `plugin-manager` 行的时限调大后重试：
+
+```yaml
+- id: plugin-manager
+  name: "@deepseek-ai/dsh-plugin-manager"
+  config:
+    githubConnectionTimeoutMs: 20000
+```
+
+走代理时，让两个工具都使用它：Git 执行
+`git config --global http.https://github.com/.proxy http://127.0.0.1:7890`；
+pnpm 在 profile 的 `.npmrc` 中为同一地址写入 `proxy=` 与 `https-proxy=`。
+改动后重启或让 HMR 重新加载 profile。
+
 ## 为什么需要这个技能
 
 OCR 是提取文字的便宜路径，不是通用的文档阅读器。技能要求智能体先判断文档类型：

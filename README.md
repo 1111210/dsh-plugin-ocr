@@ -30,6 +30,26 @@ bundle is `dsh-plugin-ocr`, and it inserts the `tool-ocr` row. Git bundles have 
 
 To remove it, use **Remove** on the bundle in Plugins.
 
+### If the GitHub check times out
+
+The Plugin Manager probes the repository with `git ls-remote` for 5 seconds
+before it installs. On a slow connection, and especially through a proxy, that
+probe can time out even though Git itself works. Raise the deadline on the
+`plugin-manager` row in the profile's `cordis.patch.yml` and retry:
+
+```yaml
+- id: plugin-manager
+  name: "@deepseek-ai/dsh-plugin-manager"
+  config:
+    githubConnectionTimeoutMs: 20000
+```
+
+Behind a proxy, make both tools use it: set the GitHub-scoped Git proxy with
+`git config --global http.https://github.com/.proxy http://127.0.0.1:7890`, and
+add `proxy=` and `https-proxy=` lines for the same address to the profile's
+`.npmrc` so pnpm uses it too. Restart or let HMR reload the profile after the
+configuration change.
+
 ## Why the skill matters
 
 OCR is the cheap path for text, not a general document reader. The skill makes
