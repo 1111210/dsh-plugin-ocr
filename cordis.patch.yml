@@ -1,0 +1,9 @@
+# DeepSeek OCR text extraction: one agent tool and one skill, no interface.
+# This row is part of the bundle. A profile can override any field here with a
+# matching `id: tool-ocr` row in its own cordis.patch.yml, but an override
+# replaces this whole config, so repeat every field the profile keeps.
+- insert:
+    - id: tool-ocr
+      name: 'dsh-plugin-ocr'
+      config:
+        credentialMode: auto

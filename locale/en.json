@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "OCR text extraction",
+    "description": "Adds the ocr_extract tool and the ocr-extract skill. The agent sends a PDF, Word, PowerPoint, or image file to the DeepSeek OCR API and receives each page's text without spending model vision tokens. The skill makes the agent judge the document first: parse machine-readable text directly, use OCR for text-bearing scans such as manuscripts and books, and keep image-led content such as diagrams, charts, and picture books on the model's own vision. Billed to the signed-in DeepSeek account or a stored API key at 1.5 CNY per 1,000 recognized pages; files go to api.deepseek.com and are not stored in the Files API. No interface: configure the plugin row, and store your own key as the DEEPSEEK_OCR_API_KEY credential instead of writing it into configuration."
+  }
+}

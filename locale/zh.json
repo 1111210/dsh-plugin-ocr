@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "OCR 文字提取",
+    "description": "新增 ocr_extract 工具与 ocr-extract 技能。智能体把 PDF、Word、PowerPoint 或图片提交给 DeepSeek OCR 接口，按页取回文字，不消耗模型视觉能力。技能要求智能体先判断文档类型：可直接解析出文字的文档优先直接解析；文字稿、书籍扫描件等主要由文字构成但无法解析的文档使用本插件；架构图、图表、绘本等以图像为主的内容交给模型自带的视觉能力。按识别成功的页数计费（1.5 元/1000 页），记在已登录的 DeepSeek 账户或已保存的 API Key 上；文件发送到 api.deepseek.com，不会存入 Files API。插件没有界面：在插件行中配置，自行设置的 Key 请存为 DEEPSEEK_OCR_API_KEY 凭据，不要写进配置文件。"
+  }
+}

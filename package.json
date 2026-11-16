@@ -1,0 +1,38 @@
+{
+  "name": "dsh-plugin-ocr",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DeepSeek OCR text extraction for DSH agents: the ocr_extract tool and the ocr-extract skill.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1111210/dsh-plugin-ocr.git"
+  },
+  "homepage": "https://github.com/1111210/dsh-plugin-ocr#readme",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "ocr",
+    "text-extraction",
+    "skill"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "skill.md",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" }
+  }
+}

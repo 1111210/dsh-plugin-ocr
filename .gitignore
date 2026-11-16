@@ -1,0 +1,11 @@
+# Never commit secrets: API keys belong in the harness credential store or .env.
+.env
+.env.*
+!.env.example
+
+node_modules/
+pnpm-lock.yaml
+*.log
+
+.DS_Store
+Thumbs.db
