@@ -18,12 +18,14 @@ Git 规格：
 
 | 规格 | 使用场景 |
 |---|---|
-| `https://github.com/1111210/dsh-plugin-ocr` | 公开仓库的 HTTPS 克隆；仓库公开时无需 GitHub 凭据。 |
-| `git@github.com:1111210/dsh-plugin-ocr.git` | 本机已有 GitHub SSH key 时使用。 |
+| `https://github.com/1111210/dsh-plugin-ocr` | 仓库地址，通常选这个。 |
+| `git+ssh://git@github.com/1111210/dsh-plugin-ocr.git` | 显式 SSH 克隆，本机已有 GitHub key 时使用；HTTPS 访问 GitHub 受阻时尤其有用。 |
 | `github:1111210/dsh-plugin-ocr` | pnpm 的 GitHub 简写，指向同一仓库。 |
 
+scp 形式的 `git@github.com:1111210/dsh-plugin-ocr.git` 会被 pnpm 拒绝
+（`ERR_PNPM_UNSUPPORTED_PROTOCOL`），需要 SSH 时请写 `git+ssh://` 形式。
 只输入仓库名 `dsh-plugin-ocr` 会被当作 npm 包名去 registry 查询，而不是 GitHub，
-所以请使用上表中的形式。安装后 profile 会依赖该仓库的提交，bundle 名为
+所以请使用上表中的形式。安装后 profile 会依赖该仓库，bundle 名为
 `dsh-plugin-ocr`，并插入 `tool-ocr` 行。Git 安装的 bundle 没有 **Versions**
 区块：更新时移除后重新安装即可。
 
@@ -117,6 +119,9 @@ API Key，因为账户请求头并不在 OCR 接口的文档认证方式之内�
 2026-11-16 在本机（DeepSeek Harness Desktop，`desktop` profile）验证：
 
 - bundle 能够安装、激活，并作为 `dsh-plugin-ocr`（行 `tool-ocr`）出现在 Plugins；
+  本次通过 `git+ssh://git@github.com/1111210/dsh-plugin-ocr.git` 从 GitHub 安装，
+  打包后的副本保留了 `index.js`、`skill.md`、patch、两份 locale、图标和文档，
+  该副本通过了下面的 OCR 冒烟调用；
 - `ocr_extract` 对智能体可见，`ocr-extract` 出现在会话技能目录中，并能通过
   `skill` 工具加载完整正文；
 - 本地生成的双页纯图片 PDF（中英文混排）、单页 PNG 和重载后的冒烟图片都按页序

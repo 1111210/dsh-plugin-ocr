@@ -16,16 +16,17 @@ these Git specs:
 
 | Spec | When to use it |
 |---|---|
-| `https://github.com/1111210/dsh-plugin-ocr` | Public HTTPS clone; works without GitHub credentials when the repository is public. |
-| `git@github.com:1111210/dsh-plugin-ocr.git` | SSH clone, when the machine already has a GitHub key. |
+| `https://github.com/1111210/dsh-plugin-ocr` | The repository URL; the usual choice. |
+| `git+ssh://git@github.com/1111210/dsh-plugin-ocr.git` | Explicit SSH clone, for machines with a GitHub key; useful when HTTPS to GitHub is blocked. |
 | `github:1111210/dsh-plugin-ocr` | pnpm's GitHub shorthand for the same repository. |
 
-A bare name such as `dsh-plugin-ocr` is a package name, so the Plugin Manager
-would look it up in the npm registry instead of GitHub; use one of the forms
-above. After installation the profile depends on the repository commit, the
+The scp-like form `git@github.com:1111210/dsh-plugin-ocr.git` is rejected by pnpm
+(`ERR_PNPM_UNSUPPORTED_PROTOCOL`), so write the `git+ssh://` URL when you need
+SSH. A bare name such as `dsh-plugin-ocr` is a package name, so the Plugin
+Manager would look it up in the npm registry instead of GitHub; use one of the
+forms above. After installation the profile depends on the repository, the
 bundle is `dsh-plugin-ocr`, and it inserts the `tool-ocr` row. Git bundles have no
-**Versions** section: update by removing and reinstalling the bundle, or by
-reinstalling a newer commit.
+**Versions** section: update by removing and reinstalling the bundle.
 
 To remove it, use **Remove** on the bundle in Plugins.
 
@@ -142,7 +143,10 @@ Verified on 2026-11-16 in this installation (DeepSeek Harness Desktop, profile
 `desktop`):
 
 - The bundle installs, activates, and appears in Plugins as `dsh-plugin-ocr`
-  with row `tool-ocr`.
+  with row `tool-ocr`. It was installed from
+  `git+ssh://git@github.com/1111210/dsh-plugin-ocr.git`, and the packed copy kept
+  `index.js`, `skill.md`, the patch, both locales, the icon, and the docs; that
+  installed copy passed the OCR smoke call below.
 - `ocr_extract` is visible to the agent, and `ocr-extract` appears in the session
   skill catalog and loads through the `skill` tool with the body above.
 - A two-page image-only PDF (Chinese and English text, generated locally), a
